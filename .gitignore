@@ -1,0 +1,28 @@
+# LaTeX build artifacts
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.run.xml
+*.synctex.gz
+
+# Temp files
+temp/
+*.bak
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+.vscode/
+.idea/

@@ -1,0 +1,127 @@
+\chapter{Data Dictionary}
+
+\section{Database Schema}
+
+\subsection{wrestlers Table}
+\begin{longtable}{llp{7cm}}
+\toprule
+Field & Type & Description \\
+\midrule
+\endhead
+id & INTEGER & Unique wrestler identifier \\
+shikona & TEXT & Ring name (may change over career) \\
+real\_name & TEXT & Birth name \\
+birth\_date & DATE & Date of birth \\
+debut\_date & DATE & Professional debut date \\
+retirement\_date & DATE & Retirement date (NULL if active) \\
+height\_cm & INTEGER & Height in centimeters \\
+weight\_kg & INTEGER & Weight in kilograms \\
+shusshin & TEXT & Birthplace/origin \\
+heya & TEXT & Stable affiliation \\
+foreign\_born & BOOLEAN & True if born outside Japan \\
+\bottomrule
+\end{longtable}
+
+\subsection{tournaments Table}
+\begin{longtable}{llp{7cm}}
+\toprule
+Field & Type & Description \\
+\midrule
+\endhead
+id & TEXT & Tournament ID (YYYYMM format) \\
+year & INTEGER & Tournament year \\
+month & INTEGER & Tournament month (1,3,5,7,9,11) \\
+location & TEXT & City (Tokyo, Osaka, Nagoya, Fukuoka) \\
+start\_date & DATE & First day of tournament \\
+end\_date & DATE & Final day of tournament \\
+\bottomrule
+\end{longtable}
+
+\subsection{bouts Table}
+\begin{longtable}{llp{7cm}}
+\toprule
+Field & Type & Description \\
+\midrule
+\endhead
+id & INTEGER & Unique bout identifier \\
+tournament\_id & TEXT & Foreign key to tournaments \\
+day & INTEGER & Day of tournament (1-15) \\
+division & TEXT & Competition division \\
+east\_wrestler\_id & INTEGER & Eastern wrestler ID \\
+west\_wrestler\_id & INTEGER & Western wrestler ID \\
+winner\_id & INTEGER & Winner's ID \\
+kimarite & TEXT & Winning technique \\
+match\_time\_seconds & INTEGER & Duration in seconds \\
+\bottomrule
+\end{longtable}
+
+\subsection{banzuke Table}
+\begin{longtable}{llp{7cm}}
+\toprule
+Field & Type & Description \\
+\midrule
+\endhead
+tournament\_id & TEXT & Foreign key to tournaments \\
+wrestler\_id & INTEGER & Foreign key to wrestlers \\
+division & TEXT & Division name \\
+rank & TEXT & Rank designation (Y, O, S, K, M1-17, J1-14) \\
+rank\_number & INTEGER & Numeric rank for ordering \\
+east\_west & TEXT & East or West designation \\
+\bottomrule
+\end{longtable}
+
+\section{Variable Definitions}
+
+\subsection{Derived Variables}
+
+\textbf{win\_rate}: Total wins divided by total bouts (wins + losses)
+
+\textbf{kachi\_koshi}: Binary indicator for achieving winning record (8+ wins)
+
+\textbf{make\_koshi}: Binary indicator for losing record (8+ losses)
+
+\textbf{career\_length}: Years from debut\_date to retirement\_date or current date
+
+\textbf{bmi}: weight\_kg / (height\_cm/100)\^{}2
+
+\textbf{push\_ratio}: Proportion of wins by pushing techniques
+
+\textbf{technique\_diversity}: Shannon entropy of kimarite distribution
+
+\textbf{kyujo\_rate}: Proportion of tournaments with absences
+
+\section{Division Codes}
+
+\begin{tabular}{ll}
+\toprule
+Code & Division Name \\
+\midrule
+Y & Yokozuna \\
+O & Ozeki \\
+S & Sekiwake \\
+K & Komusubi \\
+M & Maegashira \\
+J & Juryo \\
+Ms & Makushita \\
+Sd & Sandanme \\
+Jd & Jonidan \\
+Jk & Jonokuchi \\
+\bottomrule
+\end{tabular}
+
+\section{Missing Data Codes}
+
+\begin{tabular}{ll}
+\toprule
+Code & Meaning \\
+\midrule
+NULL & Value unknown or not applicable \\
+0 & Confirmed zero/absent \\
+-1 & Not yet occurred (future event) \\
+-999 & Error or invalid data \\
+\bottomrule
+\end{tabular}
+
+\section{Data Quality Flags}
+
+[TO COMPLETE: Reliability indicators, source verification, imputation flags]

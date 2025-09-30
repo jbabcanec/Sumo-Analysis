@@ -1,0 +1,75 @@
+\chapter*{Preface: How to Read This Book}
+\addcontentsline{toc}{chapter}{Preface}
+
+\section*{Purpose and Scope}
+
+This book represents a comprehensive quantitative analysis of professional sumo wrestling, leveraging modern data science techniques to understand the sport's competitive dynamics, strategic elements, and physical demands. Our approach combines rigorous statistical modeling with domain expertise to illuminate patterns that have shaped sumo from 1958 to the present day.
+
+The scope encompasses:
+\begin{itemize}
+\item Systematic analysis of bout outcomes using mixed-effects models
+\item Technique ecology and strategic diversity across eras
+\item Physical anthropometry and its relationship to success
+\item Injury patterns and career longevity
+\item Rating systems and predictive modeling
+\item Natural experiments from policy changes
+\end{itemize}
+
+\section*{Data Sources and Reproducibility}
+
+All analyses in this book are built on publicly available data sources, primarily:
+
+\begin{itemize}
+\item \textbf{Sumo-API}: Primary structured data source (1958--present) providing rikishi profiles, tournament results, banzuke rankings, and bout outcomes
+\item \textbf{Japan Sumo Association (JSA)}: Official records for verification and supplementary information
+\item \textbf{SumoDB}: Historical cross-validation and extended queries
+\item \textbf{Medical Literature}: PubMed and PMC databases for injury prevalence and health outcomes
+\end{itemize}
+
+Complete code for data acquisition, processing, and analysis is available at our GitHub repository. All random seeds are fixed for reproducibility, and data snapshots are versioned to ensure consistency across analyses.
+
+\section*{What ``Causality'' Does Not Mean Here}
+
+This book operates primarily in the realm of observational data analysis. When we discuss relationships between variables---such as the association between technique diversity and win rates---we are describing correlations and predictive patterns, not necessarily causal mechanisms.
+
+True causal inference requires either:
+\begin{itemize}
+\item Randomized controlled experiments (impossible in professional sports)
+\item Natural experiments with credible identification strategies
+\item Strong theoretical assumptions that may not hold
+\end{itemize}
+
+We employ quasi-experimental methods where possible, particularly around policy changes like:
+\begin{itemize}
+\item The 2003 abolition of the \japterm{kōshō}{kosho} system (injury leave)
+\item The 2010 clarification of foreign-born wrestler quotas
+\item Changes in tournament frequency and structure
+\end{itemize}
+
+However, readers should interpret findings as associations and patterns rather than definitive causal relationships unless explicitly noted otherwise.
+
+\section*{Structural Constraints Shaping the Data}
+
+Several institutional features of professional sumo create unique data-generating processes:
+
+\paragraph{Foreign-Born Wrestler Cap} Each stable (\japterm{heya}{heya}) may have only one foreign-born wrestler at a time. This constraint affects recruitment patterns, career trajectories, and competitive dynamics in ways that must be accounted for in our models.
+
+\paragraph{Same-Stable Non-Competition Rule} Wrestlers from the same stable do not face each other in regular tournament bouts (exceptions exist for playoffs). This creates systematic missing data patterns that affect rating calculations and head-to-head analyses.
+
+\paragraph{Promotion/Demotion System} The rigid ranking system creates discrete jumps in competition level and incentive structures, particularly around the 7-7 record threshold for maintaining rank.
+
+\paragraph{Tournament Structure Evolution} The shift to six tournaments per year in 1958 and other structural changes create era effects that must be controlled for in longitudinal analyses.
+
+\section*{How to Use This Book}
+
+\paragraph{For the General Reader} Focus on Chapters 1--2 for historical context, Chapter 5 for descriptive insights, and Chapter 10 for compelling case studies. Technical sections are clearly marked and can be skipped without losing the narrative thread.
+
+\paragraph{For the Data Scientist} Chapters 3--4 detail our data pipeline and feature engineering. Chapters 6--9 contain the core statistical models. Appendix D provides full model specifications and diagnostic tests.
+
+\paragraph{For the Sumo Enthusiast} Chapter 5's landscape analysis and Chapter 10's case studies will be of particular interest. Appendix B contains a comprehensive kimarite catalog with historical notes.
+
+\paragraph{For Researchers} All data and code are available for replication and extension. We encourage independent verification of our findings and welcome corrections or improvements.
+
+\section*{Acknowledgments}
+
+This work would not have been possible without the meticulous record-keeping of the Japan Sumo Association and the dedication of the sumo data community, particularly the maintainers of Sumo-API and SumoDB.

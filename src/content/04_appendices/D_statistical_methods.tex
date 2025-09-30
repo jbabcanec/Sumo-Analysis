@@ -1,0 +1,189 @@
+\chapter{Statistical Methods and Model Details}
+
+\section{Model Specifications}
+
+\subsection{Mixed Effects Logistic Regression}
+
+The primary bout outcome model is specified as:
+
+\begin{align}
+\text{logit}(P(Y_{ijkt} = 1)) &= \beta_0 + \boldsymbol{\beta}_1^T \mathbf{X}_{it} + \boldsymbol{\beta}_2^T \mathbf{X}_{jt} \\
+&\quad + \boldsymbol{\beta}_3^T \mathbf{Z}_{kt} + \alpha_i + \gamma_j + \delta_k + \epsilon_t
+\end{align}
+
+where:
+\begin{itemize}
+\item $Y_{ijkt} = 1$ if wrestler $i$ beats wrestler $j$ in tournament $k$ on day $t$
+\item $\mathbf{X}_{it}$ = wrestler $i$'s characteristics at time $t$
+\item $\mathbf{Z}_{kt}$ = tournament/context variables
+\item $\alpha_i \sim N(0, \sigma_{\alpha}^2)$ = wrestler random effects
+\item $\gamma_j \sim N(0, \sigma_{\gamma}^2)$ = opponent random effects  
+\item $\delta_k \sim N(0, \sigma_{\delta}^2)$ = tournament random effects
+\item $\epsilon_t \sim N(0, \sigma_{\epsilon}^2)$ = day effects
+\end{itemize}
+
+\subsection{Survival Models for Career Analysis}
+
+For career longevity analysis, we employ Cox proportional hazards models:
+
+\begin{equation}
+h(t|\mathbf{X}) = h_0(t) \exp(\boldsymbol{\beta}^T \mathbf{X})
+\end{equation}
+
+With competing risks framework for different retirement types:
+\begin{itemize}
+\item Voluntary retirement
+\item Forced retirement (injury)
+\item Demotion-induced retirement
+\end{itemize}
+
+\subsection{Rating System Mathematics}
+
+\subsubsection{Elo System}
+
+Updates follow:
+\begin{align}
+R_{i,new} &= R_{i,old} + K \cdot (S_i - E_i) \\
+E_i &= \frac{1}{1 + 10^{(R_j - R_i)/400}}
+\end{align}
+
+where $K$ varies by division and experience:
+\begin{equation}
+K = \begin{cases}
+40 & \text{if new wrestler (first 10 tournaments)} \\
+32 & \text{if makuuchi/juryo} \\
+24 & \text{if lower divisions}
+\end{cases}
+\end{equation}
+
+\subsubsection{Glicko System}
+
+Rating updates incorporate uncertainty (rating deviation):
+
+\begin{align}
+\phi_{new}^2 &= \frac{1}{\frac{1}{\phi_{old}^2 + \sigma^2} + \frac{1}{v}} \\
+\mu_{new} &= \mu_{old} + \phi_{new}^2 \sum_j \frac{g(\phi_j)(s_j - E(\mu, \mu_j, \phi_j))}{\sigma^2}
+\end{align}
+
+\section{Estimation Methods}
+
+\subsection{Maximum Likelihood}
+
+For logistic regression models, we maximize:
+
+\begin{equation}
+\ell(\boldsymbol{\beta}) = \sum_{i=1}^n \left[ y_i \log p_i + (1-y_i) \log(1-p_i) \right]
+\end{equation}
+
+\subsection{Bayesian Estimation}
+
+Hierarchical models estimated using MCMC with priors:
+
+\begin{align}
+\boldsymbol{\beta} &\sim N(\mathbf{0}, \tau^2 \mathbf{I}) \\
+\sigma_{\alpha}^2 &\sim \text{InvGamma}(a, b) \\
+\tau^2 &\sim \text{InvGamma}(c, d)
+\end{align}
+
+\subsection{Cross-Validation Procedures}
+
+Time series cross-validation using expanding windows:
+\begin{itemize}
+\item Training: Tournaments 1 to $t$
+\item Testing: Tournament $t+1$
+\item Advance $t$ and repeat
+\end{itemize}
+
+\section{Model Diagnostics}
+
+\subsection{Residual Analysis}
+
+Pearson residuals for logistic models:
+\begin{equation}
+r_i = \frac{y_i - \hat{p}_i}{\sqrt{\hat{p}_i(1-\hat{p}_i)}}
+\end{equation}
+
+\subsection{Influential Observations}
+
+Cook's distance and DFBETAS for outlier detection.
+
+\subsection{Goodness of Fit}
+
+\begin{itemize}
+\item Hosmer-Lemeshow test
+\item Calibration plots
+\item ROC curves and AUC
+\end{itemize}
+
+\section{Prediction Evaluation Metrics}
+
+\subsection{Scoring Rules}
+
+Brier Score:
+\begin{equation}
+BS = \frac{1}{N} \sum_{i=1}^N (p_i - y_i)^2
+\end{equation}
+
+Log Loss:
+\begin{equation}
+LL = -\frac{1}{N} \sum_{i=1}^N [y_i \log p_i + (1-y_i) \log(1-p_i)]
+\end{equation}
+
+\subsection{Calibration Metrics}
+
+Expected Calibration Error (ECE):
+\begin{equation}
+ECE = \sum_{m=1}^M \frac{|B_m|}{n} |\text{acc}(B_m) - \text{conf}(B_m)|
+\end{equation}
+
+\section{Computational Details}
+
+\subsection{Software and Packages}
+
+\begin{itemize}
+\item Python: scikit-learn, statsmodels, lifelines
+\item R: lme4, survival, rms
+\item Stan: Bayesian inference
+\item SQLite: Data storage and querying
+\end{itemize}
+
+\subsection{Convergence Diagnostics}
+
+For MCMC chains:
+\begin{itemize}
+\item $\hat{R}$ statistic (Gelman-Rubin)
+\item Effective sample size
+\item Trace plots
+\end{itemize}
+
+\subsection{Computational Complexity}
+
+[TO COMPLETE: Runtime analysis, memory requirements, scalability]
+
+\section{Bootstrap and Resampling}
+
+\subsection{Confidence Intervals}
+
+Percentile method for non-parametric CIs:
+\begin{equation}
+CI_{1-\alpha} = [\hat{\theta}_{\alpha/2}, \hat{\theta}_{1-\alpha/2}]
+\end{equation}
+
+\subsection{Bias Correction}
+
+$BC_a$ method for skewed distributions.
+
+\section{Multiple Testing Corrections}
+
+Benjamini-Hochberg procedure for FDR control:
+\begin{equation}
+\alpha_{BH} = \frac{i}{m} \cdot \alpha
+\end{equation}
+
+\section{Power Analysis}
+
+[TO COMPLETE: Sample size calculations, effect size detection]
+
+\section{Sensitivity Analysis}
+
+[TO COMPLETE: Robustness to model assumptions, prior sensitivity]

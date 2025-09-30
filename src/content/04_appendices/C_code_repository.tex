@@ -1,0 +1,89 @@
+\chapter{Code Repository and Reproducibility}
+
+\section{Repository Structure}
+
+[TO COMPLETE: GitHub repository layout]
+
+\section{Installation and Setup}
+
+\subsection{System Requirements}
+
+\begin{itemize}
+\item Python 3.8+ with packages: pandas, numpy, sqlite3, requests
+\item SQLite 3.35+
+\item LaTeX distribution (TeX Live recommended)
+\item R 4.0+ (optional, for some analyses)
+\end{itemize}
+
+\subsection{Database Setup}
+
+\begin{lstlisting}[language=bash]
+cd database/
+sqlite3 sumo.db < setup.sql
+python bulk_import.py
+\end{lstlisting}
+
+\subsection{Analysis Environment}
+
+[TO COMPLETE: Jupyter notebook setup, package versions, environment files]
+
+\section{Data Collection Scripts}
+
+\subsection{bulk\_import.py}
+
+[TO COMPLETE: Main data collection script documentation]
+
+\subsection{API Integration}
+
+[TO COMPLETE: Sumo-API wrapper functions, rate limiting, error handling]
+
+\subsection{Data Validation}
+
+[TO COMPLETE: Consistency checks, cross-source validation]
+
+\section{Analysis Code}
+
+\subsection{Statistical Models}
+
+[TO COMPLETE: Model fitting scripts, validation procedures]
+
+\subsection{Visualization}
+
+[TO COMPLETE: Figure generation code, plot styling]
+
+\subsection{Performance Metrics}
+
+[TO COMPLETE: Rating calculation, prediction evaluation]
+
+\section{Reproducibility Checklist}
+
+\begin{enumerate}
+\item Clone repository: \texttt{git clone [URL]}
+\item Install dependencies: \texttt{pip install -r requirements.txt}
+\item Run data collection: \texttt{python database/bulk\_import.py}
+\item Execute analyses: \texttt{python analysis/run\_all.py}
+\item Generate figures: \texttt{python figures/generate\_all.py}
+\item Compile book: \texttt{pdflatex main.tex}
+\end{enumerate}
+
+\section{Data Versioning}
+
+[TO COMPLETE: Data snapshot management, version control for large files]
+
+\section{Testing}
+
+\subsection{Unit Tests}
+
+[TO COMPLETE: Model validation, data integrity tests]
+
+\subsection{Integration Tests}
+
+[TO COMPLETE: End-to-end pipeline validation]
+
+\section{Documentation}
+
+[TO COMPLETE: Function documentation, API reference, tutorial notebooks]
+
+\section{License and Attribution}
+
+[TO COMPLETE: Open source license, data source attribution, citation requirements]
