@@ -51,8 +51,15 @@
 \usepackage{amsthm}
 
 % Bibliography
-\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
+\usepackage[backend=biber,style=numeric,natbib=true]{biblatex}
 \addbibresource{src/references.bib}
+% Use superscript citations
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \textsuperscript{\usebibmacro{cite}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 
 % Hyperlinks
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
