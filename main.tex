@@ -73,7 +73,7 @@
 \usepackage{makeidx}
 \makeindex
 
-% Chapter styling - reduced spacing
+% Chapter and section styling
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries}
@@ -81,6 +81,33 @@
 {10pt}  % Reduced from 20pt
 {\Huge}
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}  % Reduce space before/after chapters
+
+% Section spacing - reduced spacing (original)
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{3ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Table of Contents spacing - clean, structured hierarchy
+\usepackage{tocloft}
+% Section spacing
+\setlength{\cftsecnumwidth}{2.8em}        % Width for section numbers
+\setlength{\cftsecindent}{0em}            % No indent for sections
+\setlength{\cftbeforesecskip}{0.3em}      % Small space before sections
+
+% Subsection spacing
+\setlength{\cftsubsecnumwidth}{3.5em}     % Width for subsection numbers
+\setlength{\cftsubsecindent}{2.8em}       % Indent subsections by section number width
+\setlength{\cftbeforesubsecskip}{0.15em}  % Minimal space before subsections
+
+% Subsubsection spacing
+\setlength{\cftsubsubsecnumwidth}{4.2em}  % Width for subsubsection numbers
+\setlength{\cftsubsubsecindent}{6.3em}    % Indent by section + subsection widths
+\setlength{\cftbeforesubsubsecskip}{0.1em} % Minimal space before subsubsections
+
+% Add leader dots for better readability
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
 
 % Document info
 \title{The Science of Sumo: Data, Technique, and Performance in Professional Wrestling}
@@ -94,45 +121,49 @@
 \maketitle
 
 \tableofcontents
+
+\clearpage
 \listoffigures
+
+\clearpage
 \listoftables
 
 % Preface
-\include{src/content/00_frontmatter/preface}
+\input{src/content/00_frontmatter/preface}
 
 % Main matter
 \mainmatter
 
 % Part I: Foundations
 \part{Foundations}
-\include{src/content/01_foundations/ch01_history/main}
-\include{src/content/01_foundations/ch02_prior_work/main}
-\include{src/content/01_foundations/ch03_data_infrastructure/main}
-\include{src/content/01_foundations/ch04_measurement/main}
-\include{src/content/01_foundations/ch05_descriptive/main}
+\input{src/content/01_foundations/ch01_history/main}
+% \input{src/content/01_foundations/ch02_prior_work/main}
+% \input{src/content/01_foundations/ch03_data_infrastructure/main}
+% \input{src/content/01_foundations/ch04_measurement/main}
+% \input{src/content/01_foundations/ch05_descriptive/main}
 
-% Part II: Analysis
-\part{Statistical Analysis}
-\include{src/content/02_analysis/ch06_models/main}
-\include{src/content/02_analysis/ch07_causality/main}
+% % Part II: Analysis
+% \part{Statistical Analysis}
+% \input{src/content/02_analysis/ch06_models/main}
+% \input{src/content/02_analysis/ch07_causality/main}
 
-% Part III: Advanced Topics
-\part{Advanced Topics}
-\include{src/content/03_advanced/ch08_injuries/main}
-\include{src/content/03_advanced/ch09_forecasting/main}
-\include{src/content/03_advanced/ch10_case_studies/main}
-\include{src/content/03_advanced/ch11_future/main}
+% % Part III: Advanced Topics
+% \part{Advanced Topics}
+% \input{src/content/03_advanced/ch08_injuries/main}
+% \input{src/content/03_advanced/ch09_forecasting/main}
+% \input{src/content/03_advanced/ch10_case_studies/main}
+% \input{src/content/03_advanced/ch11_future/main}
+
+% Appendices (stay in main matter for proper numbering)
+\part{Appendices}
+\appendix
+\input{src/content/04_appendices/A_data_dictionary}
+\input{src/content/04_appendices/B_kimarite_catalog}
+\input{src/content/04_appendices/C_code_repository}
+\input{src/content/04_appendices/D_statistical_methods}
 
 % Back matter
 \backmatter
-
-% Part IV: Appendices
-\part{Appendices}
-\appendix
-\include{src/content/04_appendices/A_data_dictionary}
-\include{src/content/04_appendices/B_kimarite_catalog}
-\include{src/content/04_appendices/C_code_repository}
-\include{src/content/04_appendices/D_statistical_methods}
 
 % Bibliography
 \printbibliography[heading=bibintoc,title={References}]
